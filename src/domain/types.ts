@@ -10,3 +10,8 @@ export const AddressSchema = z.object({
 
 export type Address = z.infer<typeof AddressSchema>;
 
+export interface Serializeble {
+  id: string;
+  toJson(): string;
+  toObject(): Record<string, unknown>;
+}

@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { z } from "zod";
-import { AddressSchema } from "./types.js";
+import { AddressSchema, Serializeble } from "./types.js";
 
 export const ParentCreationSchema = z.object({
   id: z.string().uuid().optional(),
@@ -14,14 +14,14 @@ export const ParentCreationSchema = z.object({
 
 export type ParentCreationType = z.infer<typeof ParentCreationSchema>;
 
-export class Parent {
+export class Parent implements Serializeble {
   firstName: ParentCreationType["firstName"];
   surname: ParentCreationType["surname"];
   phones: ParentCreationType["phones"];
   emails: ParentCreationType["emails"];
   address: ParentCreationType["address"];
   document: ParentCreationType["document"];
-  readonly id: ParentCreationType["id"];
+  readonly id: string;
 
   constructor(data: ParentCreationType) {
     this.firstName = data.firstName;
